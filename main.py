@@ -16,7 +16,7 @@ client = discord.Client()
 sad_words = ["sad", "depressed", "unhappy", "miserable", "depressing"]
 starter_encouragements = ["Cheer up!", "Hang in there!", "You are a great person / bot!"]
 
-#To pull a quote from the api
+#Quote functionality
 def get_quote():
     response = requests.get("Https://zenquotes.io/api/random")
     json_data = json.loads(response.text)
