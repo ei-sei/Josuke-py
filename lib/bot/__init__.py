@@ -1,3 +1,4 @@
+from discord import Intents
 from apscheduler.schedulers.asyncio import  AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 
@@ -10,7 +11,12 @@ class Bot(BotBase):
         self.ready = False
         self.guild = None
         self.scheduler  =AsyncIOScheduler()
-        super().__init__(command_prefix=PREFIX, OWNER_IDS=OWNER_IDS)
+
+        super().__init__(
+            command_prefix=PREFIX, 
+            OWNER_IDS=OWNER_IDS,
+            intents = Intents.all(),
+            )
     
     def run(self, version):
         self.VERSION = version
@@ -30,8 +36,8 @@ class Bot(BotBase):
     async def on_ready(self):
         if not self.ready:
             self.ready = True
-            self.guilds = self.get_guild(697906870651846738)
             print("Bot ready")
+            
         
         else:
             print("Bot Reconnected")
