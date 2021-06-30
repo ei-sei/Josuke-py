@@ -1,1 +1,1 @@
-worker: __init__.py
+worker: ./lib/bot/token/__init__.py
