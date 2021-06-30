@@ -18,11 +18,11 @@ class Bot(BotBase):
         with open("./lib/bot/token", "r", encoding="utf-8") as tf:
             self.TOKEN = tf.read()
         
-        print("Running bot...")
+        print("Starting up bot...")
         super().run(self.TOKEN, reconnect=True)
 
     async def on_connect(self):
-        print("Bot has connected")
+        print("Systems ready!")
 
     async def on_disconnect(self):
         print("Bot has disconnected")
