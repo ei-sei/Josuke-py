@@ -1,1 +1,1 @@
-worker: ./lib/bot/token/__init__.py
+worker: D:\VSC Code\Discord bot\lib\bot\__init__.py
