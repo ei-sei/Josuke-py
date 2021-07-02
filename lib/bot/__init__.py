@@ -31,12 +31,12 @@ class Bot(BotBase):
         print("Systems ready!")
 
     async def on_disconnect(self):
-        print("Bot has disconnected")
+        print("Bot has disconnected.")
     
     async def on_ready(self):
         if not self.ready:
             self.ready = True
-            print("Bot ready")
+            print("Bot ready.")
             
         
         else:
