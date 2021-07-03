@@ -5,7 +5,7 @@ from discord.ext.commands import Bot as BotBase
 PREFIX = "+"
 OWNER_IDS = [114719310819098629]
 
-class Bot(BotBase):
+class client(BotBase):
     def __init__(self):
         self.PREFIX = PREFIX
         self.ready = False
@@ -20,6 +20,7 @@ class Bot(BotBase):
     
     def run(self, version):
         self.VERSION = version
+        
 
         with open("./lib/bot/token", "r", encoding="utf-8") as tf:
             self.TOKEN = tf.read()
@@ -46,4 +47,4 @@ class Bot(BotBase):
     async def on_message(self, message):
         pass
 
-bot = Bot()
+client = client()
