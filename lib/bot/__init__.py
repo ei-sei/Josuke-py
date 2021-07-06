@@ -1,7 +1,9 @@
-from discord import Intents, channel
+from discord import Intents
 from apscheduler.schedulers.asyncio import  AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
-from discord import Embed
+from discord import Embed, File
+import random
+import os
 
 PREFIX = "+"
 OWNER_IDS = [114719310819098629]
@@ -43,14 +45,17 @@ class client(BotBase):
             channel = self.get_channel(856241227997642773)
             await channel.send("Now online")
 
-            embed = Embed(title="Now online!", description="Shakeey")
-            fields = [("Name", "Value", True),
+            embed = Embed(title="Now online!", description="Shakeey", 
+            colour=0xFF0000, )
+            fields = [("Name", "Value", True), 
             ("Another field", "This field is next to the other one.", True), 
             ("A non-inline field", "This field will appear on its own row", False)]
-            
             for name, value, inline in fields:
-                embed.add_field(name="Name", value="Value", inline=True)
+                embed.add_field(name=name, value=value, inline=inline)
             await channel.send(embed=embed)
+            
+            await channel.send(file=File("data\jojo\image1.gif"))
+            
         
         else:
             print("Bot Reconnected")
