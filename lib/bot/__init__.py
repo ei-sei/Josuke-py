@@ -1,9 +1,14 @@
+from logging import error
 from discord import Intents
 from apscheduler.schedulers.asyncio import  AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
+from discord.ext.commands import CommandNotFound
 from discord import Embed, File
+
 import random
 import os
+
+from discord.ext.commands.errors import CommandNotFound
 
 PREFIX = "+"
 OWNER_IDS = [114719310819098629]
@@ -36,7 +41,26 @@ class client(BotBase):
 
     async def on_disconnect(self):
         print("Bot has disconnected.")
-    
+
+    async def on_error(self, err, *args, **kwargs):
+        if err == "on_command_error":
+            await args[0].send("Something went wrong.")
+
+            channel = self.get_channel(856241227997642773)
+            await channel.send("An error occured.")
+            raise
+
+    async def on_command_error(self, ctx, exc):
+        if isinstance(exc, CommandNotFound):
+            pass
+
+        elif hasattr(exc, "original"):
+            raise exc.original
+        
+        else:
+            raise exc
+
+
     async def on_ready(self):
         if not self.ready:
             self.ready = True
