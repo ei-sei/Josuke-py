@@ -73,12 +73,11 @@ class client(BotBase):
     async def on_ready(self):
         if not self.ready:
             self.ready = True
-            self.scheduler.add_job(
-                self.print_message, CronTrigger(DayOfWeekField == 0, hour=0))
-            self.scheduler.start()
-
+            # self.scheduler.add_job(self.print_message, CronTrigger(DayOfWeekField == 0, hour=0))
+            # self.scheduler.start()
+            
             channel = self.get_channel(856241227997642773)
-            await channel.send("Now online")
+            await channel.send("Ora ora ora!")
 
             # embed = Embed(title="Now online!", description="Shakeey",
             # colour=0xFF0000, )
@@ -89,9 +88,8 @@ class client(BotBase):
             #     embed.add_field(name=name, value=value, inline=inline)
             # await channel.send(embed=embed)
 
-            await channel.send(file=File("data\jojo\image1.gif"))
-
             print("Bot ready.")
+            await channel.send(file=File("data\jojo\image1.gif"))
         else:
             print("Bot Reconnected")
 
