@@ -1,9 +1,9 @@
 from datetime import datetime
 from glob import glob
+from time import sleep
 from lib.cogs.fun import setup
 
 from apscheduler.triggers.cron import CronTrigger
-from apscheduler.triggers.cron.fields import DayOfWeekField
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
@@ -23,11 +23,23 @@ PREFIX = "+"
 OWNER_IDS = [114719310819098629]
 COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 
+class Ready(object):
+    def __init__(self):
+        for cog in COGS:
+            setattr(self, cog, False)
+
+    def ready_up(self, cog):
+        setattr(self, cog, True)
+        print(f"{cog} cog ready")
+    
+    def all_ready(self):
+        return all([getattr(self, cog) for cog in COGS])
 
 class bot(BotBase):
     def __init__(self):
         self.PREFIX = PREFIX
         self.ready = False
+        self.cogs_ready = Ready()
         self.guild = None
         self.scheduler = AsyncIOScheduler()
 
@@ -50,7 +62,7 @@ class bot(BotBase):
         print("Starting up bot...")
         super().run(self.TOKEN, reconnect=True)
 
-    async def print_message(self):
+    async def rules_reminder(self):
         await self.stdout.send("I am a timed notification.")
 
     async def on_connect(self):
@@ -75,13 +87,13 @@ class bot(BotBase):
 
     async def on_ready(self):
         if not self.ready:
-            self.ready = True
-            self.stdout = self.get_channel(856241227997642773)
-            # self.scheduler.add_job(self.print_message, CronTrigger(DayOfWeekField == 0, hour=0))
-            # self.scheduler.start()
             
-            await self.stdout.send("Ora ora ora!")
+            self.stdout = self.get_channel(856241227997642773)
+            self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
+            self.scheduler.start()
 
+            # self.update_db()
+            
             # embed = Embed(title="Now online!", description="Shakeey",
             # colour=0xFF0000, )
             # fields = [("Name", "Value", True),
@@ -91,7 +103,16 @@ class bot(BotBase):
             #     embed.add_field(name=name, value=value, inline=inline)
             # await channel.send(embed=embed)
 
-            print("Bot ready.")
+            # while not self.cogs_ready.all_ready():
+            #     await sleep(0.5)
+            # while not self.cogs_ready.all_ready():
+            #     await sleep(0.5)
+
+            await self.stdout.send("Now online!")
+            self.ready = True
+            print("Bot is live.")
+
+            await self.stdout.send("Ora ora ora!")
             await self.stdout.send(file=File("data\jojo\image1.gif"))
         else:
             print("Bot Reconnected")
