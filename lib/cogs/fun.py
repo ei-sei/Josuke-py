@@ -11,9 +11,13 @@ class Fun(Cog):
             
         await self.bot.stdout.send("Cogs are in motion")
     
-    @Cog.listener()
-    async def on_message():
-        pass
+    @Cog.event()
+    async def on_message(message):
+
+        msg = message.content
+
+        if msg.startswith('test'):
+            await message.channel.send('I am fully functional!')
 
 
 def setup(bot):
