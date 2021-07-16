@@ -17,7 +17,7 @@ import random, os
 
 
 
-client  = commands.Bot(command_prefix = '.')
+PREFIX = '+'
 
 OWNER_IDS = [114719310819098629]
 COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")]
@@ -86,8 +86,8 @@ class bot(BotBase):
         if not self.ready:
             
             self.stdout = self.get_channel(856241227997642773)
-            self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
-            self.scheduler.start()
+            # self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
+            # self.scheduler.start()
 
             # self.update_db()
             
