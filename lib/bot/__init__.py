@@ -1,7 +1,4 @@
-from datetime import datetime
 from glob import glob
-from time import sleep
-from lib.cogs.fun import setup
 
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -9,9 +6,10 @@ from apscheduler.triggers.cron import CronTrigger
 
 from discord.ext.commands import Bot as BotBase, cog
 from discord.ext.commands import CommandNotFound
+from discord.ext.commands.core import command
 from discord.ext.commands.errors import CommandNotFound
 
-from discord import Intents
+from discord import Intents, client
 from discord import Embed, File
 
 from ..db import db
@@ -19,7 +17,8 @@ import random, os
 
 
 
-PREFIX = "+"
+client  = commands.Bot(command_prefix = '.')
+
 OWNER_IDS = [114719310819098629]
 COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 
@@ -30,7 +29,7 @@ class Ready(object):
 
     def ready_up(self, cog):
         setattr(self, cog, True)
-        print(f"{cog} cog ready")
+        #print(f"{cog} cog ready")
     
     def all_ready(self):
         return all([getattr(self, cog) for cog in COGS])
@@ -59,11 +58,9 @@ class bot(BotBase):
 
         with open("./lib/bot/token", "r", encoding="utf-8") as tf:
             self.TOKEN = tf.read()
-        print("Starting up bot...")
+        #print("Starting up bot...")
         super().run(self.TOKEN, reconnect=True)
 
-    async def rules_reminder(self):
-        await self.stdout.send("I am a timed notification.")
 
     async def on_connect(self):
         print("Systems ready!")
@@ -103,17 +100,19 @@ class bot(BotBase):
             #     embed.add_field(name=name, value=value, inline=inline)
             # await channel.send(embed=embed)
 
-            # while not self.cogs_ready.all_ready():
-            #     await sleep(0.5)
+
             # while not self.cogs_ready.all_ready():
             #     await sleep(0.5)
 
             await self.stdout.send("Now online!")
+            
             self.ready = True
-            print("Bot is live.")
+            print('We have logged in as {0.user}'
+            .format(bot))
 
-            await self.stdout.send("Ora ora ora!")
-            await self.stdout.send(file=File("data\jojo\image1.gif"))
+            # await self.stdout.send("Ora ora ora!")
+            # await self.stdout.send(file=File("data\jojo\image1.gif"))
+
         else:
             print("Bot Reconnected")
 
