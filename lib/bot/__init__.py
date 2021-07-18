@@ -21,23 +21,10 @@ PREFIX = '+'
 OWNER_IDS = [114719310819098629]
 COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 
-# class Ready(object):
-#     def __init__(self):
-#         for cog in COGS:
-#             setattr(self, cog, False)
-
-#     def ready_up(self, cog):
-#         setattr(self, cog, True)
-#         print(f"{cog} cog ready")
-    
-#     def all_ready(self):
-#         return all([getattr(self, cog) for cog in COGS])
-
 class bot(BotBase):
     def __init__(self):
         self.PREFIX = PREFIX
         self.ready = False
-        #self.cogs_ready = Ready()
         self.guild = None
         self.scheduler = AsyncIOScheduler()
 
