@@ -4,6 +4,7 @@ import json
 import os
 from dotenv import load_dotenv
 from discord.ext import commands
+from discord import Embed, File
 
 client = commands.Bot(command_prefix = '.')
 
@@ -12,6 +13,8 @@ client = commands.Bot(command_prefix = '.')
 async def on_ready():
     print('We have logged in as {0.user}'
     .format(client))
+
+    
 
 #command
 @client.command()
@@ -33,6 +36,10 @@ async def on_message(message):
     
     if msg.startswith('test'):
         await message.channel.send('I am fully functional!')
+    
+    if msg.startswith('jojo'):
+            await message.channel.send("Ora ora ora!")
+            await message.channel.send(file=File("data\jojo\image1.gif"))
 
 
 #get function
