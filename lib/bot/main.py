@@ -8,7 +8,12 @@ from discord import Embed, File
 
 client = commands.Bot(command_prefix = '.')
 
-#Status
+#Set up block 
+#        **START**
+async def on_connect(self):
+    print('We have logged in as {0.user}'
+    .format(client))
+
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'
@@ -38,7 +43,7 @@ async def on_message(message):
         await message.channel.send('I am fully functional!')
     
     if msg.startswith('jojo'):
-            await message.channel.send("Ora ora ora!")
+            #await message.channel.send("Ora ora ora!")
             await message.channel.send(file=File("data\jojo\image1.gif"))
 
 
