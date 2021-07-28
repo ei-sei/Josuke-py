@@ -1,10 +1,8 @@
-  
-import requests
-import json
-import os
 from dotenv import load_dotenv
 from discord.ext import commands
 from discord import Embed, File
+
+import requests, json, os
 
 client = commands.Bot(command_prefix = '.')
 
